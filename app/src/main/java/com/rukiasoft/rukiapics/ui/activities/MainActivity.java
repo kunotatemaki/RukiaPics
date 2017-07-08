@@ -76,12 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void showTagInput(View view){
         MainActivityFragment fragment = getShownFragment();
-        fragment.showInputTag(view);
+        fragment.getPresenter().showInputTag(this, view);
     }
 
     private void hideTagInput(){
         MainActivityFragment fragment = getShownFragment();
-        fragment.hideInputTag(tagButton);
+        fragment.getPresenter().hideInputTag(tagButton);
     }
 
     private MainActivityFragment getShownFragment(){
