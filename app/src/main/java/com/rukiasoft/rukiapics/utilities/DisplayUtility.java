@@ -1,4 +1,4 @@
-package com.rukiasoft.rukiapics.ui.utilities;
+package com.rukiasoft.rukiapics.utilities;
 
 import android.app.Activity;
 import android.content.Context;
