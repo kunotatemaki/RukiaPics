@@ -45,14 +45,13 @@ public abstract class ToolbarAndProgressActivity extends AppCompatActivity {
     Boolean needToShowRefresh = false;
     @State
     String message = "";
-    @VisibleForTesting
-    public ProgressDialog mProgressDialog;
     private SwipeRefreshLayout refreshLayout;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        disableRefreshLayoutSwipe();
         Icepick.restoreInstanceState(this, savedInstanceState);
     }
 
@@ -73,7 +72,7 @@ public abstract class ToolbarAndProgressActivity extends AppCompatActivity {
     public void setToolbar(Toolbar toolbar){
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(true);
             try {
                 if (toolbar.getClass() != null) {
@@ -93,33 +92,6 @@ public abstract class ToolbarAndProgressActivity extends AppCompatActivity {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-
-    public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCanceledOnTouchOutside(false);
-        }
-        mProgressDialog.setMessage(message);
-        needToShowRefresh = true;
-        mProgressDialog.show();
-    }
-
-    public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-        needToShowRefresh = false;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
         }
     }
 
@@ -168,11 +140,11 @@ public abstract class ToolbarAndProgressActivity extends AppCompatActivity {
     /**
      * Enables swipe gesture
      */
-    public void enableRefreshLayoutSwipe() {
+    public void enableRefreshLayoutSwipe(boolean state) {
         if (refreshLayout == null) {
             return;
         }
-        refreshLayout.setEnabled(true);
+        refreshLayout.setEnabled(state);
     }
 
     /**

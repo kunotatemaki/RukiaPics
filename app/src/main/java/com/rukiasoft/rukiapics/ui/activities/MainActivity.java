@@ -2,6 +2,7 @@ package com.rukiasoft.rukiapics.ui.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,6 +23,8 @@ public class MainActivity extends ToolbarAndProgressActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.tag_button) FloatingActionButton tagButton;
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout refreshLayout;
 
     MainActivityPresenter presenter;
     @Override
@@ -31,7 +34,8 @@ public class MainActivity extends ToolbarAndProgressActivity {
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setToolbar(toolbar);
-
+        setRefreshLayout(refreshLayout);
+        enableRefreshLayoutSwipe(false);
         presenter = new MainActivityPresenter(this);
 
     }

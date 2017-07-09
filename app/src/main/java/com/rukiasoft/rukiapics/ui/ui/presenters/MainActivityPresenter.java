@@ -1,11 +1,11 @@
 package com.rukiasoft.rukiapics.ui.ui.presenters;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.rukiasoft.rukiapics.BuildConfig;
 import com.rukiasoft.rukiapics.FlickrConnection.FlickrEndpoints;
 import com.rukiasoft.rukiapics.model.FlickrResponse;
@@ -30,7 +30,7 @@ import retrofit2.Response;
 public class MainActivityPresenter {
 
     private final static String TAG = MainActivityPresenter.class.getSimpleName();
-    boolean isDownloading = false;
+    private boolean isDownloading = false;
     private MainActivity activity;
 
     public MainActivityPresenter(MainActivity activity) {
@@ -57,14 +57,16 @@ public class MainActivityPresenter {
 
         call.enqueue(new Callback<FlickrResponse>() {
             @Override
-            public void onResponse(Call<FlickrResponse> call, Response<FlickrResponse> response) {
-                Log.d(TAG, "response_flickr");
+            public void onResponse(@NonNull Call<FlickrResponse> call, @NonNull Response<FlickrResponse> response) {
+                Log.d(TAG, "response from flickr");
+                //hide refreshing
                 tools.hideRefreshLayout(activity);
                 isDownloading = false;
-                if(response.body() == null) return;
+                if(response.body() == null || response.body().getPhotos() == null){
+                    return;
+                }
                 JsonArray photos = response.body().getPhotos().get("photo").getAsJsonArray();
-                Log.d(TAG, "response_flickr");
-                List<PicturePojo> list = new ArrayList<PicturePojo>();
+                List<PicturePojo> list = new ArrayList<>();
                 Gson gson = new Gson();
                 for(JsonElement object : photos){
                     PicturePojo pojo = gson.fromJson(object, PicturePojo.class);
@@ -73,7 +75,7 @@ public class MainActivityPresenter {
 
             }
             @Override
-            public void onFailure(Call<FlickrResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<FlickrResponse> call, Throwable t) {
                 tools.hideRefreshLayout(activity);
                 isDownloading = false;
                 Log.d(TAG, "Something went wrong: " + t.getMessage());
