@@ -1,5 +1,7 @@
 package com.rukiasoft.rukiapics.ui.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -76,6 +78,8 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     @Override
     public void onCardClick(View view, PicturePojo pictureItem) {
         Log.d(TAG, "clicked called in fragment");
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pictureItem.getUrlM()));
+        startActivity(browserIntent);
     }
 
     @OnClick(R.id.send_button)
