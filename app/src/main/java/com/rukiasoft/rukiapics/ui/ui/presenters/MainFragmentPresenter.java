@@ -4,14 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
 import com.rukiasoft.rukiapics.model.PicturePojo;
+import com.rukiasoft.rukiapics.model.RevealCoordinates;
 import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
 import com.rukiasoft.rukiapics.utilities.BaseActivityTools;
@@ -29,13 +28,13 @@ public class MainFragmentPresenter {
     private static final String TAG = LogHelper.makeLogTag(MainFragmentPresenter.class);
 
     private boolean tagShown;
-    private int cx, cy;
-    private float initialRadius, endRadius;
+    private RevealCoordinates revealCoordinates;
 
     private MainActivityFragment fragment;
 
     public MainFragmentPresenter(MainActivityFragment fragment) {
         this.fragment = fragment;
+        revealCoordinates = new RevealCoordinates();
     }
 
     public boolean isTagShown() {
@@ -54,13 +53,14 @@ public class MainFragmentPresenter {
         cy = (view.getTop() + view.getBottom()) / 2;
         margin = DisplayUtility.getScreenHeight(getActivity()) - cy;
         cy = parent.getHeight() - margin;*/
-        cx = (fragment.getSendButton().getRight() + fragment.getSendButton().getLeft()) / 2;
-        cy = (fragment.getSendButton().getTop() + fragment.getSendButton().getBottom()) / 2;
-        initialRadius = (sender.getRight() - sender.getLeft()) / 2;
+        revealCoordinates.setCx((fragment.getSendButton().getRight() + fragment.getSendButton().getLeft()) / 2);
+        revealCoordinates.setCy((fragment.getSendButton().getTop() + fragment.getSendButton().getBottom()) / 2);
+        revealCoordinates.setInitialRadius((sender.getRight() - sender.getLeft()) / 2);
 
-        endRadius = Math.max(DisplayUtility.getScreenWidth(activity), DisplayUtility.getScreenHeight(activity));
+        revealCoordinates.setEndRadius( Math.max(DisplayUtility.getScreenWidth(activity), DisplayUtility.getScreenHeight(activity)));
         Animator anim =
-                ViewAnimationUtils.createCircularReveal(fragment.getParent(), cx, cy, initialRadius, endRadius);
+                ViewAnimationUtils.createCircularReveal(fragment.getParent(), revealCoordinates.getCx(), revealCoordinates.getCy(),
+                        revealCoordinates.getInitialRadius(), revealCoordinates.getEndRadius());
 
         // make the view visible and start the animation
         sender.setVisibility(View.INVISIBLE);
@@ -74,7 +74,8 @@ public class MainFragmentPresenter {
 
     public void hideInputTag(final View view){
         Animator anim =
-                ViewAnimationUtils.createCircularReveal(fragment.getParent(), cx, cy, endRadius, initialRadius);
+                ViewAnimationUtils.createCircularReveal(fragment.getParent(), revealCoordinates.getCx(), revealCoordinates.getCy(),
+                        revealCoordinates.getEndRadius(), revealCoordinates.getInitialRadius());
 
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -101,11 +102,11 @@ public class MainFragmentPresenter {
         adapter.setOnCardClickListener(fragment);
         fragment.getmRecyclerView().setAdapter(adapter);
         int columnCount = calculateNoOfColumns(fragment.getContext());
-        GridLayoutManager gridLayoutManager =
-                new GridLayoutManager(fragment.getContext(), columnCount);
+        StaggeredGridLayoutManager layoutManager =
+                new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
 
 
-        fragment.getmRecyclerView().setLayoutManager(gridLayoutManager);
+        fragment.getmRecyclerView().setLayoutManager(layoutManager);
 
 
         if(fragment.getFastScroller() != null) {
