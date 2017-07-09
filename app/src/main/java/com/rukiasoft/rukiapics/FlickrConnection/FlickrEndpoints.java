@@ -1,6 +1,7 @@
 package com.rukiasoft.rukiapics.FlickrConnection;
 
 
+import com.rukiasoft.rukiapics.model.FlickrResponse;
 import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
@@ -19,7 +20,7 @@ import retrofit2.http.QueryMap;
 public interface FlickrEndpoints {
 
     @GET(".")
-    Call<PicturePojo> getPicsByTags(
+    Call<FlickrResponse> getPicsByTags(
             @QueryMap Map<String, String> params);
 
 

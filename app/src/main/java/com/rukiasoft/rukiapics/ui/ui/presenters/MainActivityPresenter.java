@@ -2,13 +2,19 @@ package com.rukiasoft.rukiapics.ui.ui.presenters;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.rukiasoft.rukiapics.BuildConfig;
 import com.rukiasoft.rukiapics.FlickrConnection.FlickrEndpoints;
+import com.rukiasoft.rukiapics.model.FlickrResponse;
 import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.ui.activities.MainActivity;
 import com.rukiasoft.rukiapics.utilities.BaseActivityTools;
 import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,26 +52,28 @@ public class MainActivityPresenter {
         params.put(RukiaConstants.FLICKR_FORMAT, "json");
         params.put(RukiaConstants.FLICKR_NO_JSON_CALLBACK, "1");
 
-        final Call<PicturePojo> call =
+        final Call<FlickrResponse> call =
                 flickrEndpoints.getPicsByTags(params);
 
-        call.enqueue(new Callback<PicturePojo>() {
+        call.enqueue(new Callback<FlickrResponse>() {
             @Override
-            public void onResponse(Call<PicturePojo> call, Response<PicturePojo> response) {
+            public void onResponse(Call<FlickrResponse> call, Response<FlickrResponse> response) {
                 Log.d(TAG, "response_flickr");
                 tools.hideRefreshLayout(activity);
                 isDownloading = false;
                 if(response.body() == null) return;
-                /*List<MovieData> items = response.body().getResults();
-                if(mPopularList.isEmpty()) {
-                    setData(items);
-                }else{
-                    addData(items);
+                JsonArray photos = response.body().getPhotos().get("photo").getAsJsonArray();
+                Log.d(TAG, "response_flickr");
+                List<PicturePojo> list = new ArrayList<PicturePojo>();
+                Gson gson = new Gson();
+                for(JsonElement object : photos){
+                    PicturePojo pojo = gson.fromJson(object, PicturePojo.class);
+                    list.add(pojo);
                 }
-                mPopularList.addAll(items);*/
+
             }
             @Override
-            public void onFailure(Call<PicturePojo> call, Throwable t) {
+            public void onFailure(Call<FlickrResponse> call, Throwable t) {
                 tools.hideRefreshLayout(activity);
                 isDownloading = false;
                 Log.d(TAG, "Something went wrong: " + t.getMessage());
