@@ -93,6 +93,7 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
         }
         ((MainActivity)getActivity()).getPresenter().getPicsByTags(tags);
         ((MainActivity)getActivity()).getPresenter().hideTagInput();
+        tagInput.setText("");
     }
 
 
