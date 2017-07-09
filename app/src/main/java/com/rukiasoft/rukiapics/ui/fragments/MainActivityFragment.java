@@ -3,12 +3,14 @@ package com.rukiasoft.rukiapics.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.model.PicturePojo;
@@ -16,9 +18,11 @@ import com.rukiasoft.rukiapics.ui.activities.MainActivity;
 import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
 import com.rukiasoft.rukiapics.ui.scroll.FastScroller;
 import com.rukiasoft.rukiapics.ui.ui.presenters.MainFragmentPresenter;
+import com.rukiasoft.rukiapics.utilities.DisplayUtility;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -35,6 +39,8 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     @Nullable
     @BindView((R.id.fastscroller))
     FastScroller fastScroller;
+    @BindView(R.id.tag_input)EditText tagInput;
+
 
     MainFragmentPresenter presenter;
     Unbinder unbinder;
@@ -70,6 +76,19 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     @Override
     public void onCardClick(View view, PicturePojo pictureItem) {
         Log.d(TAG, "clicked called in fragment");
+    }
+
+    @OnClick(R.id.send_button)
+    public void sendTag(View view){
+        DisplayUtility.hideKeyboard(getActivity());
+        String tags = tagInput.getText().toString();
+        if(tags == null || tags.isEmpty()){
+            ((MainActivity)getActivity()).getPresenter().hideTagInput();
+            Snackbar.make(view, getString(R.string.no_tags), Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        ((MainActivity)getActivity()).getPresenter().getPicsByTags(tags);
+        ((MainActivity)getActivity()).getPresenter().hideTagInput();
     }
 
 

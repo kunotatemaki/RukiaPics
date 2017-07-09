@@ -7,4 +7,5 @@
 
     <string name="fastscroller_track" translatable="false">FastScroller track</string>
     <string name="fastscroller_handle" translatable="false">FastScroller handle</string>
+    <string name="no_tags">No tags typed</string>
 </resources>

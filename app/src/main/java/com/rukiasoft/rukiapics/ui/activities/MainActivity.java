@@ -72,7 +72,6 @@ public class MainActivity extends ToolbarAndProgressActivity {
 
     @OnClick(R.id.tag_button)
     public void tagButtonClick(View view){
-        presenter.getPicsByTags("perros");
         presenter.showTagInput(view);
     }
 
@@ -80,7 +79,7 @@ public class MainActivity extends ToolbarAndProgressActivity {
         return tagButton;
     }
 
-
-
-
+    public MainActivityPresenter getPresenter() {
+        return presenter;
+    }
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.widget.EditText;
 
 import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.model.RevealCoordinates;
@@ -122,4 +123,6 @@ public class MainFragmentPresenter {
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         return (int) (dpWidth / 180);
     }
+
+
 }
