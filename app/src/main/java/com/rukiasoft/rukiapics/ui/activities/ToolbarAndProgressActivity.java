@@ -27,6 +27,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.utilities.LogHelper;
 
 import java.lang.reflect.Field;

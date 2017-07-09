@@ -18,7 +18,7 @@ import retrofit2.http.QueryMap;
 
 public interface FlickrEndpoints {
 
-    @GET
+    @GET(".")
     Call<PicturePojo> getPicsByTags(
             @QueryMap Map<String, String> params);
 

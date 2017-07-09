@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
+import com.rukiasoft.rukiapics.ui.ui.presenters.MainActivityPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,14 +23,16 @@ public class MainActivity extends ToolbarAndProgressActivity {
 
     @BindView(R.id.tag_button) FloatingActionButton tagButton;
 
+    MainActivityPresenter presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setToolbar(toolbar);
 
+        presenter = new MainActivityPresenter(this);
 
     }
 
@@ -67,6 +70,7 @@ public class MainActivity extends ToolbarAndProgressActivity {
 
     @OnClick(R.id.tag_button)
     public void tagButtonClick(View view){
+        presenter.getPicsByTags("perros");
         showTagInput(view);
     }
 
