@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ToolbarAndProgressActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
