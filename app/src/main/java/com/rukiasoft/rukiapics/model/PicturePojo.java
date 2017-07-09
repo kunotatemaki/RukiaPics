@@ -39,6 +39,15 @@ public class PicturePojo {
     @SerializedName("dateupload")
     @Expose
     private String dateupload;
+    @SerializedName("datetaken")
+    @Expose
+    private String datetaken;
+    @SerializedName("datetakengranularity")
+    @Expose
+    private String datetakengranularity;
+    @SerializedName("datetakenunknown")
+    @Expose
+    private String datetakenunknown;
     @SerializedName("url_m")
     @Expose
     private String urlM;
@@ -127,6 +136,30 @@ public class PicturePojo {
 
     public void setDateupload(String dateupload) {
         this.dateupload = dateupload;
+    }
+
+    public String getDatetaken() {
+        return datetaken;
+    }
+
+    public void setDatetaken(String datetaken) {
+        this.datetaken = datetaken;
+    }
+
+    public String getDatetakengranularity() {
+        return datetakengranularity;
+    }
+
+    public void setDatetakengranularity(String datetakengranularity) {
+        this.datetakengranularity = datetakengranularity;
+    }
+
+    public String getDatetakenunknown() {
+        return datetakenunknown;
+    }
+
+    public void setDatetakenunknown(String datetakenunknown) {
+        this.datetakenunknown = datetakenunknown;
     }
 
     public String getUrlM() {

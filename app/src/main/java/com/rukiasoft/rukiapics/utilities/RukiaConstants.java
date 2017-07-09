@@ -5,4 +5,6 @@ package com.rukiasoft.rukiapics.utilities;
  */
 
 public class RukiaConstants {
+
+    public static final String BASE_URL = "https://api.flickr.com/services/rest/";
 }
