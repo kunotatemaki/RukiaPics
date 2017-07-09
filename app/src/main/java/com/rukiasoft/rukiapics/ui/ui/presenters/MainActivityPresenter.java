@@ -2,15 +2,18 @@ package com.rukiasoft.rukiapics.ui.ui.presenters;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.rukiasoft.rukiapics.BuildConfig;
 import com.rukiasoft.rukiapics.FlickrConnection.FlickrEndpoints;
+import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.model.FlickrResponse;
 import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.ui.activities.MainActivity;
+import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
 import com.rukiasoft.rukiapics.utilities.BaseActivityTools;
 import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
@@ -72,6 +75,7 @@ public class MainActivityPresenter {
                     PicturePojo pojo = gson.fromJson(object, PicturePojo.class);
                     list.add(pojo);
                 }
+                getShownFragment().getPresenter().setData(list);
 
             }
             @Override
@@ -81,6 +85,21 @@ public class MainActivityPresenter {
                 Log.d(TAG, "Something went wrong: " + t.getMessage());
             }
         });
+    }
+
+
+    public void showTagInput(View view){
+        MainActivityFragment fragment = getShownFragment();
+        fragment.getPresenter().showInputTag(activity, view);
+    }
+
+    public void hideTagInput(){
+        MainActivityFragment fragment = getShownFragment();
+        fragment.getPresenter().hideInputTag(activity.getTagButton());
+    }
+
+    public MainActivityFragment getShownFragment(){
+        return (MainActivityFragment) activity.getSupportFragmentManager().findFragmentById(R.id.fragment);
     }
 
 }

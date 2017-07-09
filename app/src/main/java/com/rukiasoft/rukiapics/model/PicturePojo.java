@@ -58,6 +58,13 @@ public class PicturePojo {
     @Expose
     private String widthM;
 
+    private long timestamp;
+
+    public PicturePojo() {
+        //set timestamp on creation
+        timestamp = System.currentTimeMillis();
+    }
+
     public String getId() {
         return id;
     }
@@ -186,4 +193,11 @@ public class PicturePojo {
         this.widthM = widthM;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
 }

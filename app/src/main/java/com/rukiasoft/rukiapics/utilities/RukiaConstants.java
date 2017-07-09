@@ -16,5 +16,6 @@ public class RukiaConstants {
     public static final String FLICKR_FORMAT = "format";
     public static final String FLICKR_NO_JSON_CALLBACK = "nojsoncallback";
 
+    public static final String MIME_TYPE_PICTURE = "image/jpeg";
 
 }

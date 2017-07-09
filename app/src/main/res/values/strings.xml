@@ -3,4 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="insert_tags">Tags...</string>
     <string name="tag_explanation">Write tags separated by comma</string>
+    <string name="pic_content_description">Picture</string>
+
+    <string name="fastscroller_track" translatable="false">FastScroller track</string>
+    <string name="fastscroller_handle" translatable="false">FastScroller handle</string>
 </resources>

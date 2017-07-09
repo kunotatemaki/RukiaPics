@@ -1,19 +1,21 @@
 package com.rukiasoft.rukiapics.ui.fragments;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 
 import com.rukiasoft.rukiapics.R;
+import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.ui.activities.MainActivity;
+import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
+import com.rukiasoft.rukiapics.ui.scroll.FastScroller;
 import com.rukiasoft.rukiapics.ui.ui.presenters.MainFragmentPresenter;
-import com.rukiasoft.rukiapics.utilities.DisplayUtility;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,12 +24,17 @@ import butterknife.Unbinder;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements FlickrRecyclerViewAdapter.OnCardClickListener{
 
     @BindView(R.id.tag_search)
     View parent;
     @BindView(R.id.send_button)
     FloatingActionButton sendButton;
+    @BindView(R.id.pics_recycler_view)
+    RecyclerView mRecyclerView;
+    @Nullable
+    @BindView((R.id.fastscroller))
+    FastScroller fastScroller;
 
     MainFragmentPresenter presenter;
     Unbinder unbinder;
@@ -60,6 +67,10 @@ public class MainActivityFragment extends Fragment {
         unbinder.unbind();
     }
 
+    @Override
+    public void onCardClick(View view, PicturePojo pictureItem) {
+        Log.d(TAG, "clicked called in fragment");
+    }
 
 
     public MainFragmentPresenter getPresenter() {
@@ -80,5 +91,18 @@ public class MainActivityFragment extends Fragment {
 
     public void setSendButton(FloatingActionButton sendButton) {
         this.sendButton = sendButton;
+    }
+
+    public RecyclerView getmRecyclerView() {
+        return mRecyclerView;
+    }
+
+    @Nullable
+    public FastScroller getFastScroller() {
+        return fastScroller;
+    }
+
+    public void setFastScroller(@Nullable FastScroller fastScroller) {
+        this.fastScroller = fastScroller;
     }
 }

@@ -23,14 +23,26 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="0dp">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/movies_recycler_view"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:background="@color/amber_500"
-            android:scrollbarStyle="insideInset"
-            />
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/pics_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:background="@color/amber_500"
+                android:scrollbarStyle="insideInset"
+                />
+            <com.rukiasoft.rukiapics.ui.scroll.FastScroller
+                android:id="@+id/fastscroller"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@id/pics_recycler_view"
+                android:layout_alignBottom="@id/pics_recycler_view"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <include layout="@layout/tag_search"

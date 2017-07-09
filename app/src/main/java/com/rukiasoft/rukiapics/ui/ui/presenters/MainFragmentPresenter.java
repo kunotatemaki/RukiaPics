@@ -3,11 +3,22 @@ package com.rukiasoft.rukiapics.ui.ui.presenters;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
+import android.support.v7.widget.GridLayoutManager;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
+import com.rukiasoft.rukiapics.model.PicturePojo;
+import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
+import com.rukiasoft.rukiapics.utilities.BaseActivityTools;
 import com.rukiasoft.rukiapics.utilities.DisplayUtility;
+import com.rukiasoft.rukiapics.utilities.LogHelper;
+
+import java.util.List;
 
 /**
  * Created by Roll on 8/7/17.
@@ -15,11 +26,13 @@ import com.rukiasoft.rukiapics.utilities.DisplayUtility;
 
 public class MainFragmentPresenter {
 
-    private boolean tagShown;
-    int cx, cy;
-    float initialRadius, endRadius;
+    private static final String TAG = LogHelper.makeLogTag(MainFragmentPresenter.class);
 
-    MainActivityFragment fragment;
+    private boolean tagShown;
+    private int cx, cy;
+    private float initialRadius, endRadius;
+
+    private MainActivityFragment fragment;
 
     public MainFragmentPresenter(MainActivityFragment fragment) {
         this.fragment = fragment;
@@ -77,4 +90,35 @@ public class MainFragmentPresenter {
 
     }
 
+
+    public void setData(List<PicturePojo> items){
+        if(fragment.isResumed()) {
+            BaseActivityTools tools = new BaseActivityTools();
+            tools.hideRefreshLayout(fragment.getActivity());
+        }
+        FlickrRecyclerViewAdapter adapter = new FlickrRecyclerViewAdapter(fragment.getContext(), items);
+        adapter.setHasStableIds(true);
+        adapter.setOnCardClickListener(fragment);
+        fragment.getmRecyclerView().setAdapter(adapter);
+        int columnCount = calculateNoOfColumns(fragment.getContext());
+        GridLayoutManager gridLayoutManager =
+                new GridLayoutManager(fragment.getContext(), columnCount);
+
+
+        fragment.getmRecyclerView().setLayoutManager(gridLayoutManager);
+
+
+        if(fragment.getFastScroller() != null) {
+            fragment.getFastScroller().setRecyclerView(fragment.getmRecyclerView());
+        }
+
+
+    }
+
+
+    private static int calculateNoOfColumns(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        return (int) (dpWidth / 180);
+    }
 }

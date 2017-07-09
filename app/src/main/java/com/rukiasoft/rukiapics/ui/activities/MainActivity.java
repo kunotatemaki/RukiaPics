@@ -3,12 +3,10 @@ package com.rukiasoft.rukiapics.ui.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
@@ -64,9 +62,9 @@ public class MainActivity extends ToolbarAndProgressActivity {
 
     @Override
     public void onBackPressed() {
-        MainActivityFragment fragment = getShownFragment();
+        MainActivityFragment fragment = presenter.getShownFragment();
         if(fragment.getPresenter().isTagShown()){
-            hideTagInput();
+            presenter.hideTagInput();
         }else {
             super.onBackPressed();
         }
@@ -75,25 +73,14 @@ public class MainActivity extends ToolbarAndProgressActivity {
     @OnClick(R.id.tag_button)
     public void tagButtonClick(View view){
         presenter.getPicsByTags("perros");
-        showTagInput(view);
+        presenter.showTagInput(view);
     }
 
     public FloatingActionButton getTagButton() {
         return tagButton;
     }
 
-    private void showTagInput(View view){
-        MainActivityFragment fragment = getShownFragment();
-        fragment.getPresenter().showInputTag(this, view);
-    }
 
-    private void hideTagInput(){
-        MainActivityFragment fragment = getShownFragment();
-        fragment.getPresenter().hideInputTag(tagButton);
-    }
 
-    private MainActivityFragment getShownFragment(){
-        return (MainActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
-    }
 
 }
