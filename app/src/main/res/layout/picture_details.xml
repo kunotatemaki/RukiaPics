@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/details_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Título de la foto"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="@dimen/separator_margin"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_marginTop="@dimen/activity_vertical_margin" />
+
+    <TextView
+        android:id="@+id/details_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/by"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/separator_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/separator_margin"
+        app:layout_constraintTop_toBottomOf="@+id/details_title" />
+
+    <TextView
+        android:id="@+id/details_by_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Fulanito de tal"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        app:layout_constraintTop_toTopOf="@+id/details_by"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/details_by"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/details_by"
+        android:layout_marginStart="@dimen/separator_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/details_published"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_published"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/separator_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/separator_margin"
+        app:layout_constraintTop_toBottomOf="@+id/details_by" />
+
+    <TextView
+        android:id="@+id/details_published_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2017/07/08 published"
+        app:layout_constraintTop_toTopOf="@+id/details_published"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/details_published"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/details_published"
+        android:layout_marginStart="@dimen/separator_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    <TextView
+        android:id="@+id/details_taken"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_taken"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/separator_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/separator_margin"
+        app:layout_constraintTop_toBottomOf="@+id/details_published"
+        />
+
+    <TextView
+        android:id="@+id/action_order_date_taken_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2017/07/08 taken"
+        app:layout_constraintTop_toTopOf="@+id/details_taken"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/details_taken"
+        android:layout_marginBottom="0dp"
+        android:layout_marginStart="@dimen/separator_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:layout_constraintLeft_toRightOf="@+id/details_taken"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    <Button
+        android:id="@+id/browser_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/open_browser"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        app:layout_constraintTop_toBottomOf="@+id/details_taken"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/gallery_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_gallery"
+        android:layout_marginTop="@dimen/separator_margin"
+        app:layout_constraintTop_toBottomOf="@+id/browser_button"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:layout_constraintLeft_toLeftOf="parent" />
+</android.support.constraint.ConstraintLayout>

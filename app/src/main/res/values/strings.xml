@@ -10,4 +10,9 @@
     <string name="no_tags">No tags typed</string>
     <string name="action_order_date_published">Order by date published</string>
     <string name="action_order_date_taken">Order by date taken</string>
+    <string name="by">By:</string>
+    <string name="date_published">Published:</string>
+    <string name="date_taken">Taken:</string>
+    <string name="open_browser">Open in browser</string>
+    <string name="save_gallery">Save in Gallery</string>
 </resources>
