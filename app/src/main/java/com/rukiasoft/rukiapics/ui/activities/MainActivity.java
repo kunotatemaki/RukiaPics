@@ -55,7 +55,7 @@ public class MainActivity extends ToolbarAndProgressActivity {
                 presenter.getShownFragment().getPresenter().orderList(MainActivityFragment.Order.PUBLISHED);
                 break;
             case R.id.action_order_date_taken:
-                presenter.getShownFragment().getPresenter().orderList(MainActivityFragment.Order.PUBLISHED);
+                presenter.getShownFragment().getPresenter().orderList(MainActivityFragment.Order.TAKEN);
                 Log.d(TAG, "date taken");
                 break;
             default:

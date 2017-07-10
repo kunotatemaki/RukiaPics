@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.AbsListView;
@@ -148,7 +149,11 @@ public class MainFragmentPresenter {
     }
 
     public void orderList(MainActivityFragment.Order type){
-
+        if(type == MainActivityFragment.Order.PUBLISHED){
+            Log.d(TAG, "published");
+        }else if(type == MainActivityFragment.Order.TAKEN){
+            Log.d(TAG, "taken");
+        }
     }
 
 
