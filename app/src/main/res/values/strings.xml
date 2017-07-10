@@ -24,5 +24,7 @@
     <string name="category_application">Application settings</string>
     <string name="title_list_preference">Number of pics</string>
     <string name="summary_list_preference">Select the number of pictures returned by Flickr</string>
+    <string name="permissions_title">Permission</string>
+    <string name="permission_explanation">This permission is needed to save the pic in your gallery</string>
 
 </resources>

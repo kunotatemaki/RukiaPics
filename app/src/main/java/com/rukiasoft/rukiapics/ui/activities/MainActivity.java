@@ -13,6 +13,7 @@ import android.view.View;
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
 import com.rukiasoft.rukiapics.ui.ui.presenters.MainActivityPresenter;
+import com.rukiasoft.rukiapics.permissions.PermissionsPresenter;
 import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
 import butterknife.BindView;
@@ -105,5 +106,7 @@ public class MainActivity extends ToolbarAndProgressActivity {
     public MainActivityPresenter getPresenter() {
         return presenter;
     }
+
+
     //endregion
 }

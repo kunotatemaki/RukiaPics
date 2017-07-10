@@ -14,11 +14,11 @@ import android.widget.EditText;
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.model.PictureLists;
 import com.rukiasoft.rukiapics.model.PicturePojo;
+import com.rukiasoft.rukiapics.permissions.PermissionsPresenter;
 import com.rukiasoft.rukiapics.ui.activities.MainActivity;
 import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
 import com.rukiasoft.rukiapics.ui.scroll.FastScroller;
 import com.rukiasoft.rukiapics.ui.ui.presenters.MainFragmentPresenter;
-import com.rukiasoft.rukiapics.ui.ui.presenters.PermissionsPresenter;
 import com.rukiasoft.rukiapics.utilities.DisplayUtility;
 import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
@@ -60,6 +60,7 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
 
     MainFragmentPresenter presenter;
     PermissionsPresenter permissionsPresenter;
+
     Unbinder unbinder;
 
 
@@ -68,6 +69,7 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     public MainActivityFragment() {
         presenter = new MainFragmentPresenter(this);
         permissionsPresenter = new PermissionsPresenter();
+
     }
 
     @Override
@@ -221,5 +223,10 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     public void setDialogItem(PicturePojo dialogItem) {
         this.dialogItem = dialogItem;
     }
+    public PermissionsPresenter getPermissionsPresenter() {
+
+        return permissionsPresenter;
+    }
+
     //endregion
 }

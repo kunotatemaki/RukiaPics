@@ -1,5 +1,6 @@
 package com.rukiasoft.rukiapics.ui.ui.presenters;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
@@ -12,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -19,9 +21,11 @@ import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.karumi.dexter.Dexter;
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.model.RevealCoordinates;
+import com.rukiasoft.rukiapics.permissions.RukiaPicsMultiplePermissionListener;
 import com.rukiasoft.rukiapics.ui.activities.MainActivity;
 import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
@@ -252,4 +256,14 @@ public class MainFragmentPresenter {
         fragment.getActivity().startActivity(browserIntent);
     }
 
+    @OnClick(R.id.gallery_button)
+    public void openSaveInGalleryClicked(View view){
+        fragment.getPermissionsPresenter().createPermissionListeners(fragment.getActivity(), this);
+        fragment.getPermissionsPresenter().askForAllPermissions(fragment.getActivity());
+
+    }
+
+    public void saveImageToGallery() {
+        Log.d(TAG, "Logic save image to gallery");
+    }
 }
