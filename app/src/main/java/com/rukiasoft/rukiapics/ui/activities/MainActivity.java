@@ -1,5 +1,6 @@
 package com.rukiasoft.rukiapics.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -67,6 +68,10 @@ public class MainActivity extends ToolbarAndProgressActivity {
                 presenter.getShownFragment().getPresenter().orderList(RukiaConstants.Order.TAKEN);
                 Log.d(TAG, "date taken");
                 break;
+            case R.id.action_settings:
+                Intent finalIntent = new Intent(this, SettingsActivity.class);
+                startActivityForResult(finalIntent, RukiaConstants.REQUEST_CODE_SETTINGS);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

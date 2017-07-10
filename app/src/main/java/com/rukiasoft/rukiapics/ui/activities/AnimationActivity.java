@@ -23,6 +23,7 @@ import butterknife.Unbinder;
 
 public class AnimationActivity extends AppCompatActivity {
 
+    //region binding views
     @BindView(R.id.circle1)
     ImageView circle1;
     @BindView(R.id.circle2)
@@ -47,6 +48,9 @@ public class AnimationActivity extends AppCompatActivity {
     TextView softText;
     private Unbinder unbinder;
 
+    //endregion
+
+    //region animation
     private Animation circle1Anim;
     private Animation circle2Anim;
     private Animation circle3Anim;
@@ -57,6 +61,8 @@ public class AnimationActivity extends AppCompatActivity {
     private Animation createAnim;
     private Animation rukiaAnim;
     private Animation softAnim;
+    //endregion
+
     private static final int REQUEST_CODE_SUPPORT = 89;
 
 
@@ -270,7 +276,7 @@ public class AnimationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        //do nothing
     }
 
     @Override
