@@ -26,5 +26,7 @@
     <string name="summary_list_preference">Select the number of pictures returned by Flickr</string>
     <string name="permissions_title">Permission</string>
     <string name="permission_explanation">This permission is needed to save the pic in your gallery</string>
+    <string name="operation_not_allowed">Operation not allowed</string>
+    <string name="image_saved">Image saved successfully</string>
 
 </resources>

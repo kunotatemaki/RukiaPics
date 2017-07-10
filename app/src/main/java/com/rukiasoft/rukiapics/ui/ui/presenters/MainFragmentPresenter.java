@@ -1,14 +1,19 @@
 package com.rukiasoft.rukiapics.ui.ui.presenters;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.HandlerThread;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -19,13 +24,13 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.karumi.dexter.Dexter;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.model.RevealCoordinates;
-import com.rukiasoft.rukiapics.permissions.RukiaPicsMultiplePermissionListener;
 import com.rukiasoft.rukiapics.ui.activities.MainActivity;
 import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
@@ -73,6 +78,7 @@ public class MainFragmentPresenter {
     private RevealCoordinates revealCoordinates;
 
     private MainActivityFragment fragment;
+    private AlertDialog dialog = null;
 
     public MainFragmentPresenter(MainActivityFragment fragment) {
         this.fragment = fragment;
@@ -244,20 +250,24 @@ public class MainFragmentPresenter {
                 dialog.cancel();
             }
         });
+        //store reference to dialog
+        dialog = builder.create();
 
-
-        builder.show();
+        dialog.show();
     }
 
     @OnClick(R.id.browser_button)
-    public void openInBrowserClicked(View view){
+    void openInBrowserClicked(View view){
         PicturePojo picture = (PicturePojo) view.getTag();
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(picture.getUrlM()));
         fragment.getActivity().startActivity(browserIntent);
+        if(dialog != null) {
+            dialog.dismiss();
+        }
     }
 
     @OnClick(R.id.gallery_button)
-    public void openSaveInGalleryClicked(View view){
+    void openSaveInGalleryClicked(View view){
         fragment.getPermissionsPresenter().createPermissionListeners(fragment.getActivity(), this);
         fragment.getPermissionsPresenter().askForAllPermissions(fragment.getActivity());
 
@@ -265,5 +275,51 @@ public class MainFragmentPresenter {
 
     public void saveImageToGallery() {
         Log.d(TAG, "Logic save image to gallery");
+        if(dialog != null) {
+            dialog.dismiss();
+        }
+        // Save image to gallery
+        if(fragment.getDialogItem() == null){
+            showNotAllowedStorage();
+        }
+        View view = getViewFromRecyclerKnowingTheItem(fragment.getDialogItem());
+        ImageView imageView = view.findViewById(R.id.pic_item);
+        if(imageView != null){
+            Bitmap bitmap = ((GlideBitmapDrawable)imageView.getDrawable()).getBitmap();
+            String savedImageURL = MediaStore.Images.Media.insertImage(
+                    fragment.getActivity().getContentResolver(),
+                    bitmap,
+                    fragment.getDialogItem().getTitle(),
+                    fragment.getDialogItem().getOwnername()
+            );
+            Log.d(TAG, savedImageURL);
+            ContentValues values = new ContentValues();
+
+            values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
+            values.put(MediaStore.Images.Media.DATE_MODIFIED, System.currentTimeMillis());
+            values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis());
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+            values.put(MediaStore.MediaColumns.DATA, savedImageURL);
+
+            fragment.getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            Snackbar.make(((MainActivity)fragment.getActivity()).getTagButton(), fragment.getActivity().getString(R.string.image_saved),
+                Snackbar.LENGTH_SHORT).show();
+
+        }else{
+            showNotAllowedStorage();
+        }
+
+
+    }
+
+    private View getViewFromRecyclerKnowingTheItem(PicturePojo dialogItem) {
+        FlickrRecyclerViewAdapter adapter = (FlickrRecyclerViewAdapter)fragment.getmRecyclerView().getAdapter();
+        int position = adapter.getPositionOfItem(fragment.getDialogItem());
+        return fragment.getmRecyclerView().getLayoutManager().findViewByPosition(position);
+    }
+
+    private void showNotAllowedStorage(){
+        Snackbar.make(((MainActivity)fragment.getActivity()).getTagButton(), fragment.getContext().getString(R.string.operation_not_allowed),
+                BaseTransientBottomBar.LENGTH_SHORT).show();
     }
 }

@@ -55,6 +55,9 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecycl
         this.onCardClickListener = onCardClickListener;
     }
 
+    public int getPositionOfItem(PicturePojo item){
+        return mItems.indexOf(item);
+    }
 
     @Override
     public PictureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -114,12 +117,6 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecycl
             unbinder = ButterKnife.bind(this, itemView);
 
         }
-
-        /*@Override
-        protected void finalize() throws Throwable {
-            super.finalize();
-            unbinder.unbind();
-        }*/
 
         void bindPicture(Context mContext, PicturePojo item) {
             Glide.with(mContext)

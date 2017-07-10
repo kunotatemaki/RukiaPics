@@ -1,6 +1,10 @@
 package com.rukiasoft.rukiapics.ui.fragments;
 
+import android.content.ContentValues;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.model.PictureLists;
 import com.rukiasoft.rukiapics.model.PicturePojo;
@@ -119,6 +125,7 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     @Override
     public void onCardClick(View view, PicturePojo pictureItem) {
         Log.d(TAG, "clicked called in fragment");
+
         dialogItem = pictureItem;
         presenter.showDialog(pictureItem);
     }
@@ -227,6 +234,8 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
 
         return permissionsPresenter;
     }
+
+
 
     //endregion
 }
