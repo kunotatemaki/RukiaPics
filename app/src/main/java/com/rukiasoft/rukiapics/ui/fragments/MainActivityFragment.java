@@ -18,6 +18,7 @@ import com.rukiasoft.rukiapics.ui.activities.MainActivity;
 import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
 import com.rukiasoft.rukiapics.ui.scroll.FastScroller;
 import com.rukiasoft.rukiapics.ui.ui.presenters.MainFragmentPresenter;
+import com.rukiasoft.rukiapics.ui.ui.presenters.PermissionsPresenter;
 import com.rukiasoft.rukiapics.utilities.DisplayUtility;
 import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
@@ -58,6 +59,7 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     @State PicturePojo dialogItem;
 
     MainFragmentPresenter presenter;
+    PermissionsPresenter permissionsPresenter;
     Unbinder unbinder;
 
 
@@ -65,6 +67,7 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
 
     public MainActivityFragment() {
         presenter = new MainFragmentPresenter(this);
+        permissionsPresenter = new PermissionsPresenter();
     }
 
     @Override

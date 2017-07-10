@@ -22,5 +22,7 @@
     <string name="rukia">rukia</string>
     <string name="soft">soft</string>
     <string name="category_application">Application settings</string>
+    <string name="title_list_preference">Number of pics</string>
+    <string name="summary_list_preference">Select the number of pictures returned by Flickr</string>
 
 </resources>

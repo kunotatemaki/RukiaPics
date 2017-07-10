@@ -3,8 +3,8 @@
     <PreferenceCategory android:title="@string/category_application">
         <ListPreference
             android:key="number_of_pictures_to_download"
-            android:title="string/title_list_preference"
-            android:summary="string/summary_list_preference"
+            android:title="@string/title_list_preference"
+            android:summary="@string/summary_list_preference"
             android:entries="@array/entries_list_preference"
             android:entryValues="@array/entryvalues_list_preference"
             android:dialogTitle="string/dialog_title_list_preference"
