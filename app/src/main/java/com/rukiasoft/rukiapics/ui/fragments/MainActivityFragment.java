@@ -86,6 +86,8 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     public void sendTag(View view){
         DisplayUtility.hideKeyboard(getActivity());
         String tags = tagInput.getText().toString();
+        //// TODO: 10/7/17 quitar esto
+        tags = "perro";
         if(tags == null || tags.isEmpty()){
             ((MainActivity)getActivity()).getPresenter().hideTagInput();
             Snackbar.make(view, getString(R.string.no_tags), Snackbar.LENGTH_SHORT).show();

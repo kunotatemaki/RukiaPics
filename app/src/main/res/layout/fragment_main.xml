@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment"
     tools:showIn="@layout/activity_main"
-    android:background="@color/cyan_400"
     android:id="@+id/fragment_parent">
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -32,7 +31,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:background="@color/amber_500"
                 android:scrollbarStyle="insideInset"
                 />
             <com.rukiasoft.rukiapics.ui.scroll.FastScroller

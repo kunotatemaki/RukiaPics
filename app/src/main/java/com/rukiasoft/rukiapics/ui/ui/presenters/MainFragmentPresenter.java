@@ -4,14 +4,17 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.widget.AbsListView;
 import android.widget.EditText;
 
 import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.model.RevealCoordinates;
+import com.rukiasoft.rukiapics.ui.activities.MainActivity;
 import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
 import com.rukiasoft.rukiapics.utilities.BaseActivityTools;
@@ -110,10 +113,30 @@ public class MainFragmentPresenter {
         fragment.getmRecyclerView().setLayoutManager(layoutManager);
 
 
+        //set fast scroller (with dog thumbnail)
         if(fragment.getFastScroller() != null) {
             fragment.getFastScroller().setRecyclerView(fragment.getmRecyclerView());
         }
 
+        //animate tag button on scroll
+        fragment.getmRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                if (dy > 0) {
+                    ((MainActivity) fragment.getActivity()).getTagButton().hide();
+                }else if (dy < 0) {
+                    ((MainActivity) fragment.getActivity()).getTagButton().show();
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    ((MainActivity)fragment.getActivity()).getTagButton().show();
+                }
+            }
+        });
 
     }
 
