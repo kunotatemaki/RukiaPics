@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.model.PicturePojo;
@@ -42,7 +43,8 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     @BindView((R.id.fastscroller))
     FastScroller fastScroller;
     @BindView(R.id.tag_input)EditText tagInput;
-
+    @Nullable @BindView(R.id.details_title)
+    TextView title;
 
     MainFragmentPresenter presenter;
     Unbinder unbinder;
@@ -82,8 +84,9 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     @Override
     public void onCardClick(View view, PicturePojo pictureItem) {
         Log.d(TAG, "clicked called in fragment");
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pictureItem.getUrlM()));
-        startActivity(browserIntent);
+        presenter.showDialog(pictureItem);
+        //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pictureItem.getUrlM()));
+        //startActivity(browserIntent);
     }
 
     @OnClick(R.id.send_button)
@@ -134,5 +137,9 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
 
     public void setFastScroller(@Nullable FastScroller fastScroller) {
         this.fastScroller = fastScroller;
+    }
+
+    public TextView getTitle() {
+        return title;
     }
 }

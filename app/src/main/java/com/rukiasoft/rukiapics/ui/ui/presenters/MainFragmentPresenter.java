@@ -4,13 +4,16 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.AbsListView;
 
+import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.model.RevealCoordinates;
 import com.rukiasoft.rukiapics.ui.activities.MainActivity;
@@ -25,6 +28,8 @@ import com.rukiasoft.rukiapics.utilities.LogHelper;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by Roll on 8/7/17.
@@ -171,4 +176,32 @@ public class MainFragmentPresenter {
     }
 
 
+    public void showDialog(PicturePojo item) {
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(fragment.getActivity());
+        // Get the layout inflater
+        LayoutInflater inflater = fragment.getActivity().getLayoutInflater();
+
+
+        final View detailsView = inflater.inflate(R.layout.picture_details, null);
+
+        ButterKnife.bind(fragment, detailsView);
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(detailsView);
+                // Add action buttons
+                /*.setPositiveButton(fragment.getResources().getString(R.string.aceptar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        CheckBox swipe = (CheckBox) detailsView.findViewById(R.id.checkbox_swipe);
+                        hideSwipeDialog(swipe.isChecked());
+                        showSwipe = false;
+                    }
+                });*/
+
+        builder.show();
+    }
 }

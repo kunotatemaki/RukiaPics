@@ -15,4 +15,5 @@
     <string name="date_taken">Taken:</string>
     <string name="open_browser">Open in browser</string>
     <string name="save_gallery">Save in Gallery</string>
+    <string name="close">Close</string>
 </resources>
