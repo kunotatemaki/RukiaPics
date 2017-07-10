@@ -4,14 +4,15 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.AbsListView;
-import android.widget.EditText;
 
 import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.model.RevealCoordinates;
@@ -20,8 +21,10 @@ import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
 import com.rukiasoft.rukiapics.utilities.BaseActivityTools;
 import com.rukiasoft.rukiapics.utilities.DisplayUtility;
+import com.rukiasoft.rukiapics.utilities.ListDatePublishedComparator;
 import com.rukiasoft.rukiapics.utilities.LogHelper;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -150,7 +153,21 @@ public class MainFragmentPresenter {
 
     public void orderList(MainActivityFragment.Order type){
         if(type == MainActivityFragment.Order.PUBLISHED){
-            Log.d(TAG, "published");
+            if(fragment.getmRecyclerView().getAdapter() == null){
+                return;
+            }
+            List<PicturePojo> list = ((FlickrRecyclerViewAdapter)fragment.getmRecyclerView().getAdapter()).getItems();
+            for(int i=0; i<10; i++){
+                Log.d(TAG, list.get(i).getDateupload());
+            }
+            Collections.sort(list, new ListDatePublishedComparator());
+            Log.d(TAG, "=========");
+            for(int i=0; i<10; i++){
+                Log.d(TAG, list.get(i).getDateupload());
+            }
+            setData(list);
+            Log.d(TAG, "list ordered");
+
         }else if(type == MainActivityFragment.Order.TAKEN){
             Log.d(TAG, "taken");
         }

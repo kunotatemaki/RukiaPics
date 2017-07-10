@@ -82,6 +82,10 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecycl
         return mItems.size();
     }
 
+    public List<PicturePojo> getItems() {
+        return mItems;
+    }
+
     @Override
     public long getItemId(int position){
         return mItems.get(position).hashCode();
