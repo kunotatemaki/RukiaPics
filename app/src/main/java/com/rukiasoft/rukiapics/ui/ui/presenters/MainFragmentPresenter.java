@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.HandlerThread;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BaseTransientBottomBar;
@@ -314,7 +313,7 @@ public class MainFragmentPresenter {
 
     private View getViewFromRecyclerKnowingTheItem(PicturePojo dialogItem) {
         FlickrRecyclerViewAdapter adapter = (FlickrRecyclerViewAdapter)fragment.getmRecyclerView().getAdapter();
-        int position = adapter.getPositionOfItem(fragment.getDialogItem());
+        int position = adapter.getPositionOfItem(dialogItem);
         return fragment.getmRecyclerView().getLayoutManager().findViewByPosition(position);
     }
 
