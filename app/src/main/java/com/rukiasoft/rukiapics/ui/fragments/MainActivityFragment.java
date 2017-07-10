@@ -51,7 +51,7 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
      List<PicturePojo> listTaken;
     @State String lastTags;
     @State
-    RukiaConstants.Order lastOrder = RukiaConstants.Order.PUBLISHED;
+    RukiaConstants.Order lastOrder = null;
     @State
     boolean tagShown;
 
@@ -80,6 +80,21 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
         if(presenter.isTagShown()){
             parent.setVisibility(View.VISIBLE);
         }
+
+        //reload data if existing
+        if(lastOrder != null){
+            switch (lastOrder){
+                case PUBLISHED:
+                    presenter.setData(listPublished);
+                    break;
+                case TAKEN:
+                    presenter.setData(listTaken);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         return view;
     }
 

@@ -22,11 +22,15 @@ public class MainActivity extends ToolbarAndProgressActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    //region binding views
     @BindView(R.id.tag_button) FloatingActionButton tagButton;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout refreshLayout;
 
+    //endregion
+
     MainActivityPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +89,7 @@ public class MainActivity extends ToolbarAndProgressActivity {
         presenter.showTagInput(view);
     }
 
+    //region getters and setters
     public FloatingActionButton getTagButton() {
         return tagButton;
     }
@@ -92,4 +97,5 @@ public class MainActivity extends ToolbarAndProgressActivity {
     public MainActivityPresenter getPresenter() {
         return presenter;
     }
+    //endregion
 }

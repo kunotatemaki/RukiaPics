@@ -31,6 +31,7 @@ import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +45,6 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecycl
     private final List<PicturePojo> mItems;
     private OnCardClickListener onCardClickListener;
     private final Context mContext;
-
-    public void addItems(List<PicturePojo> items){
-        mItems.addAll(items);
-    }
 
     public FlickrRecyclerViewAdapter(Context context, List<PicturePojo> items) {
         this.mItems = new ArrayList<>(items);
@@ -82,10 +79,6 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecycl
         return mItems.size();
     }
 
-    public List<PicturePojo> getItems() {
-        return mItems;
-    }
-
     @Override
     public long getItemId(int position){
         return mItems.get(position).hashCode();
@@ -106,23 +99,31 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecycl
     }
 
 
-    protected static class PictureViewHolder extends RecyclerView.ViewHolder {
-        public @BindView(R.id.pic_item)
+    static class PictureViewHolder extends RecyclerView.ViewHolder {
+        // region binding views
+        @BindView(R.id.pic_item)
         ImageView movieThumbnail;
-        public @BindView(R.id.cardview_item)
+        @BindView(R.id.cardview_item)
         FrameLayout cardView;
-        private Unbinder unbinder;
+        //endregion
 
-        public PictureViewHolder(View itemView) {
+        Unbinder unbinder;
+
+        PictureViewHolder(View itemView) {
             super(itemView);
             unbinder = ButterKnife.bind(this, itemView);
 
         }
 
-        public void bindPicture(Context mContext, PicturePojo item) {
+        @Override
+        protected void finalize() throws Throwable {
+            super.finalize();
+            unbinder.unbind();
+        }
+
+        void bindPicture(Context mContext, PicturePojo item) {
             Glide.with(mContext)
                     .load(item.getUrlM())
-                    //.fitCenter()
                     .signature(new MediaStoreSignature(RukiaConstants.MIME_TYPE_PICTURE, item.getTimestamp(), 0))
                     .into(movieThumbnail);
         }
