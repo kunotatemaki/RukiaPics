@@ -54,7 +54,7 @@ public class MainActivityPresenter {
         params.put(RukiaConstants.FLICKR_API_KEY, BuildConfig.API_KEY);
         params.put(RukiaConstants.FLICKR_TAGS, tags);
         params.put(RukiaConstants.FLICKR_SAFE_SEARCH, "1");
-        params.put(RukiaConstants.FLICKR_EXTRAS, "date_upload,date_taken,url_m");
+        params.put(RukiaConstants.FLICKR_EXTRAS, "date_upload,date_taken,url_m,owner_name");
         params.put(RukiaConstants.FLICKR_FORMAT, "json");
         params.put(RukiaConstants.FLICKR_NO_JSON_CALLBACK, "1");
 

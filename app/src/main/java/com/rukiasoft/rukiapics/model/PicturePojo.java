@@ -15,6 +15,9 @@ public class PicturePojo {
     @SerializedName("owner")
     @Expose
     private String owner;
+    @SerializedName("ownername")
+    @Expose
+    private String ownername;
     @SerializedName("secret")
     @Expose
     private String secret;
@@ -199,5 +202,13 @@ public class PicturePojo {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getOwnername() {
+        return ownername;
+    }
+
+    public void setOwnername(String ownername) {
+        this.ownername = ownername;
     }
 }
