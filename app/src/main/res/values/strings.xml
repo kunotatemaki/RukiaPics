@@ -21,4 +21,6 @@
     <string name="null_content_description" translatable="false"> </string>
     <string name="rukia">rukia</string>
     <string name="soft">soft</string>
+    <string name="category_application">Application settings</string>
+
 </resources>
