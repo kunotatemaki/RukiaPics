@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -11,11 +12,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.rukiasoft.rukiapics.R;
@@ -210,6 +213,7 @@ public class MainFragmentPresenter {
 
         final View detailsView = inflater.inflate(R.layout.picture_details, null);
 
+
         ButterKnife.bind(this, detailsView);
         if(title != null) {
             //set pic's title
@@ -237,7 +241,14 @@ public class MainFragmentPresenter {
             galleryButton.setTag(item);
         }
 
-        builder.setView(detailsView);
+        builder.setView(detailsView)
+                .setNegativeButton(fragment.getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+
+            }
+        });
 
 
         builder.show();
@@ -249,4 +260,5 @@ public class MainFragmentPresenter {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(picture.getUrlM()));
         fragment.getActivity().startActivity(browserIntent);
     }
+
 }
