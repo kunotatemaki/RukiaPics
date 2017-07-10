@@ -43,8 +43,7 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     @BindView((R.id.fastscroller))
     FastScroller fastScroller;
     @BindView(R.id.tag_input)EditText tagInput;
-    @Nullable @BindView(R.id.details_title)
-    TextView title;
+
 
     MainFragmentPresenter presenter;
     Unbinder unbinder;
@@ -139,7 +138,4 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
         this.fastScroller = fastScroller;
     }
 
-    public TextView getTitle() {
-        return title;
-    }
 }

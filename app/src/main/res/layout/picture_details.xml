@@ -88,7 +88,7 @@
         />
 
     <TextView
-        android:id="@+id/action_order_date_taken_tv"
+        android:id="@+id/details_taken_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="2017/07/08 taken"

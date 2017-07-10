@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.AbsListView;
+import android.widget.TextView;
 
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.model.PicturePojo;
@@ -25,10 +27,13 @@ import com.rukiasoft.rukiapics.utilities.ListDatePublishedComparator;
 import com.rukiasoft.rukiapics.utilities.ListDateTakenComparator;
 import com.rukiasoft.rukiapics.utilities.LogHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -38,6 +43,19 @@ import butterknife.ButterKnife;
 public class MainFragmentPresenter {
 
     private static final String TAG = LogHelper.makeLogTag(MainFragmentPresenter.class);
+
+    @Nullable
+    @BindView(R.id.details_title)
+    TextView title;
+    @  Nullable
+    @BindView(R.id.details_by_tv)
+    TextView owner;
+    @Nullable
+    @BindView(R.id.details_published_tv)
+    TextView published;
+    @Nullable
+    @BindView(R.id.details_taken_tv)
+    TextView taken;
 
     private boolean tagShown;
     private RevealCoordinates revealCoordinates;
@@ -186,21 +204,29 @@ public class MainFragmentPresenter {
 
         final View detailsView = inflater.inflate(R.layout.picture_details, null);
 
-        ButterKnife.bind(fragment, detailsView);
+        ButterKnife.bind(this, detailsView);
+        if(title != null) {
+            //set pic's title
+            title.setText(item.getTitle());
+        }
+        if(owner != null) {
+            //set pic's owner
+            owner.setText(item.getOwnername());
+        }
+        if(published != null) {
+            //set pic's published date
+            SimpleDateFormat myFormat = new SimpleDateFormat("yyy-MM-dd hh:mm:ss");
+            Date datePublished = new Date(Long.valueOf(item.getDateupload()));
+            published.setText(myFormat.format(datePublished));
+        }
+        if(taken != null) {
+            //set pic's taken date
+            taken.setText(item.getDatetaken());
+        }
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
+
         builder.setView(detailsView);
-                // Add action buttons
-                /*.setPositiveButton(fragment.getResources().getString(R.string.aceptar), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        CheckBox swipe = (CheckBox) detailsView.findViewById(R.id.checkbox_swipe);
-                        hideSwipeDialog(swipe.isChecked());
-                        showSwipe = false;
-                    }
-                });*/
+
 
         builder.show();
     }

@@ -14,6 +14,7 @@ public class RukiaConstants {
     public static final String FLICKR_SAFE_SEARCH = "safe_search";
     public static final String FLICKR_EXTRAS = "extras";
     public static final String FLICKR_FORMAT = "format";
+    public static final String FLICKR_PER_PAGE = "per_page";
     public static final String FLICKR_NO_JSON_CALLBACK = "nojsoncallback";
 
     public static final String MIME_TYPE_PICTURE = "image/jpeg";
