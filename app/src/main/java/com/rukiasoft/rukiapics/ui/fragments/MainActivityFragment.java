@@ -47,6 +47,10 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     MainFragmentPresenter presenter;
     Unbinder unbinder;
 
+    public enum Order {
+        PUBLISHED,
+        TAKEN
+    }
 
 
     private static final String TAG = MainActivityFragment.class.getSimpleName();

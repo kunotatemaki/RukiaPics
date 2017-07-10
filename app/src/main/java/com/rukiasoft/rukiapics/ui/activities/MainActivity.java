@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,18 +48,22 @@ public class MainActivity extends ToolbarAndProgressActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()){
+            case R.id.action_order_date_published:
+                Log.d(TAG, "date published");
+                presenter.getShownFragment().getPresenter().orderList(MainActivityFragment.Order.PUBLISHED);
+                break;
+            case R.id.action_order_date_taken:
+                presenter.getShownFragment().getPresenter().orderList(MainActivityFragment.Order.PUBLISHED);
+                Log.d(TAG, "date taken");
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
+
 
     @Override
     public void onBackPressed() {

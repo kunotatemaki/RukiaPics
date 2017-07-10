@@ -147,5 +147,9 @@ public class MainFragmentPresenter {
         return (int) (dpWidth / 180);
     }
 
+    public void orderList(MainActivityFragment.Order type){
+
+    }
+
 
 }
