@@ -11,4 +11,5 @@
 
 
     <color name="ColorScrollBar">#00b0ff</color>
+    <color name="ColorBackgroundIcon">#ffff00</color>
 </resources>

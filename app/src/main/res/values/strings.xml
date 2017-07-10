@@ -16,4 +16,9 @@
     <string name="open_browser">Open in browser</string>
     <string name="save_gallery">Save in Gallery</string>
     <string name="close">Close</string>
+    <string name="imagine">imagine</string>
+    <string name="create">create</string>
+    <string name="null_content_description" translatable="false"> </string>
+    <string name="rukia">rukia</string>
+    <string name="soft">soft</string>
 </resources>

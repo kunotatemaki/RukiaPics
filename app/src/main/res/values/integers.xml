@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="enter_imagine">2500</integer>
+    <integer name="enter_rukia">4000</integer>
+    <integer name="enter_create">3000</integer>
+    <integer name="enter_soft">4500</integer>
+    <integer name="finish_all">5200</integer>
+    <integer name="duration_enter">100</integer>
+    <integer name="duration_exit">200</integer>
+</resources>
