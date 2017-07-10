@@ -4,12 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.AbsListView;
@@ -26,6 +23,7 @@ import com.rukiasoft.rukiapics.utilities.ListDateTakenComparator;
 import com.rukiasoft.rukiapics.utilities.LogHelper;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -50,11 +48,11 @@ public class MainFragmentPresenter {
         return tagShown;
     }
 
-    public void setTagShown(boolean tagShown) {
+    private void setTagShown(boolean tagShown) {
         this.tagShown = tagShown;
     }
 
-    public void showInputTag(Activity activity, View sender){
+    void showInputTag(Activity activity, View sender){
 
         /*cx = (view.getRight() + view.getLeft()) / 2;
         int margin = DisplayUtility.getScreenWidth(getActivity())- cx;
@@ -81,7 +79,7 @@ public class MainFragmentPresenter {
 
     }
 
-    public void hideInputTag(final View view){
+    void hideInputTag(final View view){
         Animator anim =
                 ViewAnimationUtils.createCircularReveal(fragment.getParent(), revealCoordinates.getCx(), revealCoordinates.getCy(),
                         revealCoordinates.getEndRadius(), revealCoordinates.getInitialRadius());
@@ -153,39 +151,23 @@ public class MainFragmentPresenter {
     }
 
     public void orderList(MainActivityFragment.Order type){
-        if(type == MainActivityFragment.Order.PUBLISHED){
-            if(fragment.getmRecyclerView().getAdapter() == null){
-                return;
-            }
-            List<PicturePojo> list = ((FlickrRecyclerViewAdapter)fragment.getmRecyclerView().getAdapter()).getItems();
-            for(int i=0; i<10; i++){
-                Log.d(TAG, list.get(i).getDateupload());
-            }
-            Collections.sort(list, new ListDatePublishedComparator());
-            Log.d(TAG, "=========");
-            for(int i=0; i<10; i++){
-                Log.d(TAG, list.get(i).getDateupload());
-            }
-            setData(list);
-            Log.d(TAG, "list ordered");
-
-        }else if(type == MainActivityFragment.Order.TAKEN){
-            if(fragment.getmRecyclerView().getAdapter() == null){
-                return;
-            }
-            List<PicturePojo> list = ((FlickrRecyclerViewAdapter)fragment.getmRecyclerView().getAdapter()).getItems();
-            for(int i=0; i<10; i++){
-                Log.d(TAG, list.get(i).getDatetaken());
-            }
-            Collections.sort(list, new ListDateTakenComparator());
-            Log.d(TAG, "=========");
-            for(int i=0; i<10; i++){
-                Log.d(TAG, list.get(i).getDatetaken());
-            }
-            setData(list);
-            Log.d(TAG, "list ordered");
-            Log.d(TAG, "taken");
+        FlickrRecyclerViewAdapter adapter = (FlickrRecyclerViewAdapter)fragment.getmRecyclerView().getAdapter();
+        if(adapter == null){
+            return;
         }
+        Comparator comparator = null;
+
+        //get comparator
+        if(type == MainActivityFragment.Order.PUBLISHED){
+            comparator = new ListDatePublishedComparator();
+        }else if(type == MainActivityFragment.Order.TAKEN){
+            comparator = new ListDateTakenComparator();
+        }
+
+        //order
+        List<PicturePojo> list = ((FlickrRecyclerViewAdapter)fragment.getmRecyclerView().getAdapter()).getItems();
+        Collections.sort(list, comparator);
+        setData(list);
     }
 
 
