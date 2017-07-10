@@ -21,8 +21,6 @@ public class SplashActivity extends AppCompatActivity {
 
 
         //start animation if needed
-        // TODO: 10/7/17 quitar esto 
-        started = true;
         if(!started){
             launchAnimation();
         }else {

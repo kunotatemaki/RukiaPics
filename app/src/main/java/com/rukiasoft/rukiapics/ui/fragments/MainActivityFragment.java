@@ -135,8 +135,6 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
         DisplayUtility.hideKeyboard(getActivity());
         setLastOrder(RukiaConstants.Order.PUBLISHED);
         String tags = tagInput.getText().toString();
-        //// TODO: 10/7/17 quitar esto
-        tags = "perro";
         if(tags == null || tags.isEmpty()){
             ((MainActivity)getActivity()).getPresenter().hideTagInput();
             Snackbar.make(view, getString(R.string.no_tags), Snackbar.LENGTH_SHORT).show();
