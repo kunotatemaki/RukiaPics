@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/orange_800"
+    android:background="@color/colorPrimary"
     android:elevation="@dimen/fab_elevation">
 
 
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/colorAccent"
         app:srcCompat="@android:drawable/ic_menu_send"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="16dp"
@@ -30,7 +30,6 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@color/green_400"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin">
@@ -42,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
+        android:textColor="@color/grey_white_1000"
         android:hint="@string/insert_tags"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor arcu id elit dictum pharetra. Nunc elementum magna ligula, sit amet lobortis libero semper sit amet. Nulla quis massa quis nisl gravida scelerisque nec et libero. Sed eleifend cursus egestas. Integer eget varius lacus. Fusce elementum, orci id auctor porttitor, diam nunc condimentum massa, ut scelerisque arcu tortor vel turpis. Curabitur ut dictum nunc. Donec tempus fringilla tortor sit amet feugiat. Integer varius non felis non maximus. In iaculis felis justo, ut facilisis quam molestie vitae. Phasellus ac condimentum augue. Sed cursus velit nec eros feugiat finibus. Praesent malesuada est non ipsum viverra, vel tempor lorem placerat."
         app:layout_constraintLeft_toLeftOf="parent"
@@ -57,6 +57,7 @@
         android:layout_height="wrap_content"
         android:text="@string/tag_explanation"
         android:paddingTop="@dimen/activity_vertical_margin"
+        android:textColor="@color/grey_white_1000"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintRight_toRightOf="@+id/tag_input_layout"
         app:layout_constraintLeft_toLeftOf="@+id/tag_input_layout"

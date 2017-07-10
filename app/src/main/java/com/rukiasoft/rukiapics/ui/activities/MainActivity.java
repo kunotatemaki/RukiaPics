@@ -38,6 +38,10 @@ public class MainActivity extends ToolbarAndProgressActivity {
         enableRefreshLayoutSwipe(false);
         presenter = new MainActivityPresenter(this);
 
+        if(getPresenter().getShownFragment().getPresenter().isTagShown()){
+            getTagButton().setVisibility(View.INVISIBLE);
+        }
+
     }
 
     @Override

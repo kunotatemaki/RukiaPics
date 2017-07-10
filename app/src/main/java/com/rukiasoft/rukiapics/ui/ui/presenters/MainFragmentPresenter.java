@@ -41,6 +41,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import icepick.State;
 
 /**
  * Created by Roll on 8/7/17.
@@ -53,7 +54,7 @@ public class MainFragmentPresenter {
     @Nullable
     @BindView(R.id.details_title)
     TextView title;
-    @  Nullable
+    @Nullable
     @BindView(R.id.details_by_tv)
     TextView owner;
     @Nullable
@@ -69,7 +70,7 @@ public class MainFragmentPresenter {
     @BindView(R.id.gallery_button)
     Button galleryButton;
 
-    private boolean tagShown;
+
     private RevealCoordinates revealCoordinates;
 
     private MainActivityFragment fragment;
@@ -80,11 +81,11 @@ public class MainFragmentPresenter {
     }
 
     public boolean isTagShown() {
-        return tagShown;
+        return fragment.isTagShown();
     }
 
     private void setTagShown(boolean tagShown) {
-        this.tagShown = tagShown;
+        fragment.setTagShown(tagShown);
     }
 
     void showInputTag(Activity activity, View sender){

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,11 +26,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import icepick.State;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements FlickrRecyclerViewAdapter.OnCardClickListener{
+public class MainActivityFragment extends BaseFragment implements FlickrRecyclerViewAdapter.OnCardClickListener{
 
     @BindView(R.id.tag_search)
     View parent;
@@ -47,6 +47,8 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     List<PicturePojo> listPublished;
     List<PicturePojo> listTaken;
     String lastTags;
+    @State
+    boolean tagShown;
 
     MainFragmentPresenter presenter;
     Unbinder unbinder;
@@ -59,13 +61,18 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         if(presenter.isTagShown()){
-            ((MainActivity)getActivity()).getTagButton().setVisibility(View.INVISIBLE);
             parent.setVisibility(View.VISIBLE);
         }
         return view;
@@ -154,5 +161,13 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
 
     public String getLastTags() {
         return lastTags;
+    }
+
+    public boolean isTagShown() {
+        return tagShown;
+    }
+
+    public void setTagShown(boolean tagShown) {
+        this.tagShown = tagShown;
     }
 }
