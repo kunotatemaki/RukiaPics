@@ -1,7 +1,5 @@
 package com.rukiasoft.rukiapics.ui.fragments;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.model.PicturePojo;
@@ -22,6 +19,9 @@ import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
 import com.rukiasoft.rukiapics.ui.scroll.FastScroller;
 import com.rukiasoft.rukiapics.ui.ui.presenters.MainFragmentPresenter;
 import com.rukiasoft.rukiapics.utilities.DisplayUtility;
+import com.rukiasoft.rukiapics.utilities.RukiaConstants;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,14 +44,12 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     FastScroller fastScroller;
     @BindView(R.id.tag_input)EditText tagInput;
 
+    List<PicturePojo> listPublished;
+    List<PicturePojo> listTaken;
+    String lastTags;
 
     MainFragmentPresenter presenter;
     Unbinder unbinder;
-
-    public enum Order {
-        PUBLISHED,
-        TAKEN
-    }
 
 
     private static final String TAG = MainActivityFragment.class.getSimpleName();
@@ -97,7 +95,8 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
             Snackbar.make(view, getString(R.string.no_tags), Snackbar.LENGTH_SHORT).show();
             return;
         }
-        ((MainActivity)getActivity()).getPresenter().getPicsByTags(tags);
+        lastTags = tags;
+        ((MainActivity)getActivity()).getPresenter().getPicsByTags(tags, RukiaConstants.Order.PUBLISHED);
         ((MainActivity)getActivity()).getPresenter().hideTagInput();
         tagInput.setText("");
     }
@@ -137,4 +136,23 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
         this.fastScroller = fastScroller;
     }
 
+    public List<PicturePojo> getListPublished() {
+        return listPublished;
+    }
+
+    public void setListPublished(List<PicturePojo> listPublished) {
+        this.listPublished = listPublished;
+    }
+
+    public List<PicturePojo> getListTaken() {
+        return listTaken;
+    }
+
+    public void setListTaken(List<PicturePojo> listTaken) {
+        this.listTaken = listTaken;
+    }
+
+    public String getLastTags() {
+        return lastTags;
+    }
 }

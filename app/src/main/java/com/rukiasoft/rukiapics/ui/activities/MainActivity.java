@@ -12,6 +12,7 @@ import android.view.View;
 import com.rukiasoft.rukiapics.R;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
 import com.rukiasoft.rukiapics.ui.ui.presenters.MainActivityPresenter;
+import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,10 +53,10 @@ public class MainActivity extends ToolbarAndProgressActivity {
         switch (item.getItemId()){
             case R.id.action_order_date_published:
                 Log.d(TAG, "date published");
-                presenter.getShownFragment().getPresenter().orderList(MainActivityFragment.Order.PUBLISHED);
+                presenter.getShownFragment().getPresenter().orderList(RukiaConstants.Order.PUBLISHED);
                 break;
             case R.id.action_order_date_taken:
-                presenter.getShownFragment().getPresenter().orderList(MainActivityFragment.Order.TAKEN);
+                presenter.getShownFragment().getPresenter().orderList(RukiaConstants.Order.TAKEN);
                 Log.d(TAG, "date taken");
                 break;
             default:

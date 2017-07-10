@@ -11,7 +11,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -27,9 +26,8 @@ import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
 import com.rukiasoft.rukiapics.utilities.BaseActivityTools;
 import com.rukiasoft.rukiapics.utilities.DisplayUtility;
-import com.rukiasoft.rukiapics.utilities.ListDatePublishedComparator;
-import com.rukiasoft.rukiapics.utilities.ListDateTakenComparator;
 import com.rukiasoft.rukiapics.utilities.LogHelper;
+import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -184,24 +182,21 @@ public class MainFragmentPresenter {
         return (int) (dpWidth / 180);
     }
 
-    public void orderList(MainActivityFragment.Order type){
-        FlickrRecyclerViewAdapter adapter = (FlickrRecyclerViewAdapter)fragment.getmRecyclerView().getAdapter();
-        if(adapter == null){
-            return;
-        }
-        Comparator comparator = null;
+    public void orderList(RukiaConstants.Order type){
 
+        List<PicturePojo> list = null;
         //get comparator
-        if(type == MainActivityFragment.Order.PUBLISHED){
-            comparator = new ListDatePublishedComparator();
-        }else if(type == MainActivityFragment.Order.TAKEN){
-            comparator = new ListDateTakenComparator();
+        if(type == RukiaConstants.Order.PUBLISHED){
+            list = fragment.getListPublished();
+        }else if(type == RukiaConstants.Order.TAKEN){
+            list = fragment.getListTaken();
         }
 
-        //order
-        List<PicturePojo> list = ((FlickrRecyclerViewAdapter)fragment.getmRecyclerView().getAdapter()).getItems();
-        Collections.sort(list, comparator);
-        setData(list);
+        if(list != null) {
+            setData(list);
+        }else{
+            ((MainActivity)fragment.getActivity()).getPresenter().getPicsByTags(fragment.getLastTags(), type);
+        }
     }
 
 
