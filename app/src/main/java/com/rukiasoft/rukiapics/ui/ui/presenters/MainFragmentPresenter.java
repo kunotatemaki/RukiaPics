@@ -22,6 +22,7 @@ import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
 import com.rukiasoft.rukiapics.utilities.BaseActivityTools;
 import com.rukiasoft.rukiapics.utilities.DisplayUtility;
 import com.rukiasoft.rukiapics.utilities.ListDatePublishedComparator;
+import com.rukiasoft.rukiapics.utilities.ListDateTakenComparator;
 import com.rukiasoft.rukiapics.utilities.LogHelper;
 
 import java.util.Collections;
@@ -169,6 +170,20 @@ public class MainFragmentPresenter {
             Log.d(TAG, "list ordered");
 
         }else if(type == MainActivityFragment.Order.TAKEN){
+            if(fragment.getmRecyclerView().getAdapter() == null){
+                return;
+            }
+            List<PicturePojo> list = ((FlickrRecyclerViewAdapter)fragment.getmRecyclerView().getAdapter()).getItems();
+            for(int i=0; i<10; i++){
+                Log.d(TAG, list.get(i).getDatetaken());
+            }
+            Collections.sort(list, new ListDateTakenComparator());
+            Log.d(TAG, "=========");
+            for(int i=0; i<10; i++){
+                Log.d(TAG, list.get(i).getDatetaken());
+            }
+            setData(list);
+            Log.d(TAG, "list ordered");
             Log.d(TAG, "taken");
         }
     }

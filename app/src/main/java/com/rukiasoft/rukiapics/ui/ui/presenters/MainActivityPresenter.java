@@ -15,9 +15,12 @@ import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.ui.activities.MainActivity;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
 import com.rukiasoft.rukiapics.utilities.BaseActivityTools;
+import com.rukiasoft.rukiapics.utilities.ListDatePublishedComparator;
 import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +78,8 @@ public class MainActivityPresenter {
                     PicturePojo pojo = gson.fromJson(object, PicturePojo.class);
                     list.add(pojo);
                 }
+                //set the data ordered
+                Collections.sort(list, new ListDatePublishedComparator());
                 getShownFragment().getPresenter().setData(list);
 
             }

@@ -18,6 +18,7 @@ public class ListDatePublishedComparator implements java.util.Comparator<Picture
         if(p2.getDateupload() == null)
             return -1;
         Date d1, d2;
+        //The date is in milliseconds
         try {
             d1 = new Date(Long.valueOf(p1.getDateupload()));
         }catch (NumberFormatException e){
