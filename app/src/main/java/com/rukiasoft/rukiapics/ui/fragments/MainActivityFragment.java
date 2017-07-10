@@ -121,6 +121,7 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     @OnClick(R.id.send_button)
     public void sendTag(View view){
         DisplayUtility.hideKeyboard(getActivity());
+        setLastOrder(RukiaConstants.Order.PUBLISHED);
         String tags = tagInput.getText().toString();
         //// TODO: 10/7/17 quitar esto
         tags = "perro";
