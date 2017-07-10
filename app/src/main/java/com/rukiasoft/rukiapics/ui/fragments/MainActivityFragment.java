@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.rukiasoft.rukiapics.R;
+import com.rukiasoft.rukiapics.model.PictureLists;
 import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.ui.activities.MainActivity;
 import com.rukiasoft.rukiapics.ui.adapters.FlickrRecyclerViewAdapter;
@@ -47,8 +48,8 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
 
     //endregion
 
-     List<PicturePojo> listPublished;
-     List<PicturePojo> listTaken;
+    @State
+    PictureLists pictureLists;
     @State String lastTags;
     @State
     RukiaConstants.Order lastOrder = null;
@@ -69,6 +70,7 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        pictureLists = new PictureLists();
     }
 
     @Override
@@ -85,10 +87,10 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
         if(lastOrder != null){
             switch (lastOrder){
                 case PUBLISHED:
-                    presenter.setData(listPublished);
+                    presenter.setData(pictureLists.getListPublished());
                     break;
                 case TAKEN:
-                    presenter.setData(listTaken);
+                    presenter.setData(pictureLists.getListTaken());
                     break;
                 default:
                     break;
@@ -164,19 +166,19 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     }
 
     public List<PicturePojo> getListPublished() {
-        return listPublished;
+        return pictureLists.getListPublished();
     }
 
     public void setListPublished(List<PicturePojo> listPublished) {
-        this.listPublished = listPublished;
+        this.pictureLists.setListPublished(listPublished);
     }
 
     public List<PicturePojo> getListTaken() {
-        return listTaken;
+        return pictureLists.getListTaken();
     }
 
     public void setListTaken(List<PicturePojo> listTaken) {
-        this.listTaken = listTaken;
+        this.pictureLists.setListTaken(listTaken);
     }
 
     public String getLastTags() {

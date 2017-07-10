@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="entries_list_preference">
+        <item>10 pics</item>
+        <item>25 pics</item>
+        <item>50 pics</item>
+        <item>75 pics</item>
+        <item>100 pics</item>
+        <item>500 pics</item>
+    </string-array>
+
+    <string-array name="entryvalues_list_preference">
+        <item>10</item>
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+        <item>100</item>
+        <item>500</item>
+    </string-array>
+
+</resources>

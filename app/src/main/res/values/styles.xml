@@ -37,4 +37,8 @@
         <item name="actionMenuTextColor">@android:color/white</item>
     </style>
 
+    <style name="SettingsTheme" parent="AppTheme">
+        <item name="colorAccent">@color/ColorSettings</item>
+    </style>
+
 </resources>

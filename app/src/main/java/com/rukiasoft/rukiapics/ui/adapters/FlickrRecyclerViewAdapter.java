@@ -115,11 +115,11 @@ public class FlickrRecyclerViewAdapter extends RecyclerView.Adapter<FlickrRecycl
 
         }
 
-        @Override
+        /*@Override
         protected void finalize() throws Throwable {
             super.finalize();
             unbinder.unbind();
-        }
+        }*/
 
         void bindPicture(Context mContext, PicturePojo item) {
             Glide.with(mContext)

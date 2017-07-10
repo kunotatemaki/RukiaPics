@@ -4,10 +4,13 @@ package com.rukiasoft.rukiapics.model;
  * Created by Roll on 8/7/17.
  */
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PicturePojo {
+public class PicturePojo implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -211,4 +214,64 @@ public class PicturePojo {
     public void setOwnername(String ownername) {
         this.ownername = ownername;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.owner);
+        dest.writeString(this.ownername);
+        dest.writeString(this.secret);
+        dest.writeString(this.server);
+        dest.writeValue(this.farm);
+        dest.writeString(this.title);
+        dest.writeValue(this.ispublic);
+        dest.writeValue(this.isfriend);
+        dest.writeValue(this.isfamily);
+        dest.writeString(this.dateupload);
+        dest.writeString(this.datetaken);
+        dest.writeString(this.datetakengranularity);
+        dest.writeString(this.datetakenunknown);
+        dest.writeString(this.urlM);
+        dest.writeString(this.heightM);
+        dest.writeString(this.widthM);
+        dest.writeLong(this.timestamp);
+    }
+
+    protected PicturePojo(Parcel in) {
+        this.id = in.readString();
+        this.owner = in.readString();
+        this.ownername = in.readString();
+        this.secret = in.readString();
+        this.server = in.readString();
+        this.farm = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.title = in.readString();
+        this.ispublic = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.isfriend = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.isfamily = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.dateupload = in.readString();
+        this.datetaken = in.readString();
+        this.datetakengranularity = in.readString();
+        this.datetakenunknown = in.readString();
+        this.urlM = in.readString();
+        this.heightM = in.readString();
+        this.widthM = in.readString();
+        this.timestamp = in.readLong();
+    }
+
+    public static final Parcelable.Creator<PicturePojo> CREATOR = new Parcelable.Creator<PicturePojo>() {
+        @Override
+        public PicturePojo createFromParcel(Parcel source) {
+            return new PicturePojo(source);
+        }
+
+        @Override
+        public PicturePojo[] newArray(int size) {
+            return new PicturePojo[size];
+        }
+    };
 }

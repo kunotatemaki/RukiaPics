@@ -47,6 +47,9 @@ public class MainActivity extends ToolbarAndProgressActivity {
             getTagButton().setVisibility(View.INVISIBLE);
         }
 
+        //Set default values for preferences
+        setDefaultValuesForOptions(R.xml.options);
+
     }
 
     @Override

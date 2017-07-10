@@ -15,6 +15,7 @@ import com.rukiasoft.rukiapics.model.PicturePojo;
 import com.rukiasoft.rukiapics.ui.activities.MainActivity;
 import com.rukiasoft.rukiapics.ui.fragments.MainActivityFragment;
 import com.rukiasoft.rukiapics.utilities.BaseActivityTools;
+import com.rukiasoft.rukiapics.utilities.PreferenceTools;
 import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class MainActivityPresenter {
             orderType = "date-taken-desc";
         }
         isDownloading = true;
+        String nPicsToRequest = PreferenceTools.getNumberOfPicsToRequest(activity.getApplicationContext());
         final BaseActivityTools tools = new BaseActivityTools();
         tools.showRefreshLayout(activity);
         FlickrEndpoints flickrEndpoints = FlickrEndpoints.retrofit.create(FlickrEndpoints.class);
@@ -59,10 +61,10 @@ public class MainActivityPresenter {
         params.put(RukiaConstants.FLICKR_METHOD, "flickr.photos.search");
         params.put(RukiaConstants.FLICKR_API_KEY, BuildConfig.API_KEY);
         params.put(RukiaConstants.FLICKR_TAGS, tags);
-        params.put(RukiaConstants.FLICKR_SAFE_SEARCH, "3");
+        params.put(RukiaConstants.FLICKR_SAFE_SEARCH, "1");
         params.put(RukiaConstants.FLICKR_EXTRAS, "date_upload,date_taken,url_m,owner_name");
         params.put(RukiaConstants.FLICKR_FORMAT, "json");
-        params.put(RukiaConstants.FLICKR_PER_PAGE, "1");
+        params.put(RukiaConstants.FLICKR_PER_PAGE, nPicsToRequest);
         params.put(RukiaConstants.FLICKR_SORT, orderType);
         params.put(RukiaConstants.FLICKR_NO_JSON_CALLBACK, "5");
 
