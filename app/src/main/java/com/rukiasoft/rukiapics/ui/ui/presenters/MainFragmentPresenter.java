@@ -236,8 +236,8 @@ public class MainFragmentPresenter {
                 .setNegativeButton(fragment.getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
+                fragment.setDialogItem(null);
                 dialog.cancel();
-
             }
         });
 

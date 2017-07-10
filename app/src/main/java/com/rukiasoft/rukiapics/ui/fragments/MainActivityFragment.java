@@ -55,6 +55,7 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     RukiaConstants.Order lastOrder = null;
     @State
     boolean tagShown;
+    @State PicturePojo dialogItem;
 
     MainFragmentPresenter presenter;
     Unbinder unbinder;
@@ -97,6 +98,9 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
             }
         }
 
+        if(dialogItem != null){
+            presenter.showDialog(dialogItem);
+        }
         return view;
     }
 
@@ -110,6 +114,7 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     @Override
     public void onCardClick(View view, PicturePojo pictureItem) {
         Log.d(TAG, "clicked called in fragment");
+        dialogItem = pictureItem;
         presenter.showDialog(pictureItem);
     }
 
@@ -204,5 +209,13 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     public void setLastOrder(RukiaConstants.Order lastOrder) {
         this.lastOrder = lastOrder;
     }
-//endregion
+
+    public PicturePojo getDialogItem() {
+        return dialogItem;
+    }
+
+    public void setDialogItem(PicturePojo dialogItem) {
+        this.dialogItem = dialogItem;
+    }
+    //endregion
 }
