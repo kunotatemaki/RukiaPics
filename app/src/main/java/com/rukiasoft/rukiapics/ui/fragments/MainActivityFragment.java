@@ -33,6 +33,7 @@ import icepick.State;
  */
 public class MainActivityFragment extends BaseFragment implements FlickrRecyclerViewAdapter.OnCardClickListener{
 
+    //region binding views
     @BindView(R.id.tag_search)
     View parent;
     @BindView(R.id.send_button)
@@ -44,9 +45,13 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     FastScroller fastScroller;
     @BindView(R.id.tag_input)EditText tagInput;
 
-    List<PicturePojo> listPublished;
-    List<PicturePojo> listTaken;
-    String lastTags;
+    //endregion
+
+     List<PicturePojo> listPublished;
+     List<PicturePojo> listTaken;
+    @State String lastTags;
+    @State
+    RukiaConstants.Order lastOrder = RukiaConstants.Order.PUBLISHED;
     @State
     boolean tagShown;
 
@@ -109,7 +114,7 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     }
 
 
-
+    // region getters and setters
     public MainFragmentPresenter getPresenter() {
         return presenter;
     }
@@ -170,4 +175,17 @@ public class MainActivityFragment extends BaseFragment implements FlickrRecycler
     public void setTagShown(boolean tagShown) {
         this.tagShown = tagShown;
     }
+
+    public void setLastTags(String lastTags) {
+        this.lastTags = lastTags;
+    }
+
+    public RukiaConstants.Order getLastOrder() {
+        return lastOrder;
+    }
+
+    public void setLastOrder(RukiaConstants.Order lastOrder) {
+        this.lastOrder = lastOrder;
+    }
+//endregion
 }

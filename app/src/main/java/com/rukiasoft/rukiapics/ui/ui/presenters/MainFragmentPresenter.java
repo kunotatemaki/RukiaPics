@@ -12,13 +12,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.rukiasoft.rukiapics.R;
@@ -33,15 +31,12 @@ import com.rukiasoft.rukiapics.utilities.LogHelper;
 import com.rukiasoft.rukiapics.utilities.RukiaConstants;
 
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import icepick.State;
 
 /**
  * Created by Roll on 8/7/17.
@@ -90,12 +85,6 @@ public class MainFragmentPresenter {
 
     void showInputTag(Activity activity, View sender){
 
-        /*cx = (view.getRight() + view.getLeft()) / 2;
-        int margin = DisplayUtility.getScreenWidth(getActivity())- cx;
-        cx = parent.getRight() - margin;
-        cy = (view.getTop() + view.getBottom()) / 2;
-        margin = DisplayUtility.getScreenHeight(getActivity()) - cy;
-        cy = parent.getHeight() - margin;*/
         revealCoordinates.setCx((fragment.getSendButton().getRight() + fragment.getSendButton().getLeft()) / 2);
         revealCoordinates.setCy((fragment.getSendButton().getTop() + fragment.getSendButton().getBottom()) / 2);
         revealCoordinates.setInitialRadius((sender.getRight() - sender.getLeft()) / 2);
@@ -186,20 +175,21 @@ public class MainFragmentPresenter {
         return (int) (dpWidth / 180);
     }
 
-    public void orderList(RukiaConstants.Order type){
+    public void orderList(RukiaConstants.Order order){
 
         List<PicturePojo> list = null;
+        fragment.setLastOrder(order);
         //get comparator
-        if(type == RukiaConstants.Order.PUBLISHED){
+        if(order == RukiaConstants.Order.PUBLISHED){
             list = fragment.getListPublished();
-        }else if(type == RukiaConstants.Order.TAKEN){
+        }else if(order == RukiaConstants.Order.TAKEN){
             list = fragment.getListTaken();
         }
 
         if(list != null) {
             setData(list);
         }else{
-            ((MainActivity)fragment.getActivity()).getPresenter().getPicsByTags(fragment.getLastTags(), type);
+            ((MainActivity)fragment.getActivity()).getPresenter().getPicsByTags(fragment.getLastTags(), order);
         }
     }
 
