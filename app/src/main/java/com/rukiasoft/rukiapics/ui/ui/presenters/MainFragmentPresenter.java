@@ -4,15 +4,19 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.rukiasoft.rukiapics.R;
@@ -35,6 +39,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Roll on 8/7/17.
@@ -56,6 +61,12 @@ public class MainFragmentPresenter {
     @Nullable
     @BindView(R.id.details_taken_tv)
     TextView taken;
+    @Nullable
+    @BindView(R.id.browser_button)
+    Button browserButton;
+    @Nullable
+    @BindView(R.id.gallery_button)
+    Button galleryButton;
 
     private boolean tagShown;
     private RevealCoordinates revealCoordinates;
@@ -223,11 +234,24 @@ public class MainFragmentPresenter {
             //set pic's taken date
             taken.setText(item.getDatetaken());
         }
-
+        //pass the item to the buttons to get it when clicked
+        if(browserButton != null){
+            browserButton.setTag(item);
+        }
+        if(galleryButton != null){
+            galleryButton.setTag(item);
+        }
 
         builder.setView(detailsView);
 
 
         builder.show();
+    }
+
+    @OnClick(R.id.browser_button)
+    public void openInBrowserClicked(View view){
+        PicturePojo picture = (PicturePojo) view.getTag();
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(picture.getUrlM()));
+        fragment.getActivity().startActivity(browserIntent);
     }
 }

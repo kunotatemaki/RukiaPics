@@ -84,8 +84,6 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
     public void onCardClick(View view, PicturePojo pictureItem) {
         Log.d(TAG, "clicked called in fragment");
         presenter.showDialog(pictureItem);
-        //Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(pictureItem.getUrlM()));
-        //startActivity(browserIntent);
     }
 
     @OnClick(R.id.send_button)
@@ -103,6 +101,7 @@ public class MainActivityFragment extends Fragment implements FlickrRecyclerView
         ((MainActivity)getActivity()).getPresenter().hideTagInput();
         tagInput.setText("");
     }
+
 
 
     public MainFragmentPresenter getPresenter() {
