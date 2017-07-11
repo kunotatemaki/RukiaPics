@@ -21,6 +21,7 @@ public class RukiaConstants {
     public static final String MIME_TYPE_PICTURE = "image/jpeg";
     public static final int REQUEST_CODE_ANIMATION = 11;
     public static final int REQUEST_CODE_SETTINGS = 12;
+    public static final String DATEFORMAT = "yyy-MM-dd hh:mm:ss";
 
     public enum Order {
         PUBLISHED,

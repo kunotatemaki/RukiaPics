@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -72,6 +73,9 @@ public class MainFragmentPresenter {
     @Nullable
     @BindView(R.id.gallery_button)
     Button galleryButton;
+
+    @VisibleForTesting
+    private String savedImagePath;
 
 
     private RevealCoordinates revealCoordinates;
@@ -141,13 +145,13 @@ public class MainFragmentPresenter {
         FlickrRecyclerViewAdapter adapter = new FlickrRecyclerViewAdapter(fragment.getContext(), items);
         adapter.setHasStableIds(true);
         adapter.setOnCardClickListener(fragment);
-        fragment.getmRecyclerView().setAdapter(adapter);
         int columnCount = calculateNoOfColumns(fragment.getContext());
         StaggeredGridLayoutManager layoutManager =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
 
 
         fragment.getmRecyclerView().setLayoutManager(layoutManager);
+        fragment.getmRecyclerView().setAdapter(adapter);
 
 
         //set fast scroller (with dog thumbnail)
@@ -225,7 +229,7 @@ public class MainFragmentPresenter {
         }
         if(published != null) {
             //set pic's published date
-            SimpleDateFormat myFormat = new SimpleDateFormat("yyy-MM-dd hh:mm:ss");
+            SimpleDateFormat myFormat = new SimpleDateFormat(RukiaConstants.DATEFORMAT);
             Date datePublished = new Date(Long.valueOf(item.getDateupload()));
             published.setText(myFormat.format(datePublished));
         }
@@ -292,6 +296,7 @@ public class MainFragmentPresenter {
                     fragment.getDialogItem().getOwnername()
             );
             Log.d(TAG, savedImageURL);
+            savedImagePath = savedImageURL;
             ContentValues values = new ContentValues();
 
             values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
@@ -320,5 +325,21 @@ public class MainFragmentPresenter {
     private void showNotAllowedStorage(){
         Snackbar.make(((MainActivity)fragment.getActivity()).getTagButton(), fragment.getContext().getString(R.string.operation_not_allowed),
                 BaseTransientBottomBar.LENGTH_SHORT).show();
+    }
+
+    @VisibleForTesting
+    public PicturePojo getShowedItem(){
+        PicturePojo pic = new PicturePojo();
+        pic.setTitle(title.getText().toString());
+        pic.setOwner(owner.getText().toString());
+        pic.setDatetaken(taken.getText().toString());
+        pic.setDateupload(published.getText().toString());
+
+        return pic;
+    }
+
+    @VisibleForTesting
+    public String getSavedImagePath(){
+        return savedImagePath;
     }
 }
